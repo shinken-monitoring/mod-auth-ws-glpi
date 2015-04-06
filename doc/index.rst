@@ -7,9 +7,7 @@ Shinken GLPI authentication
 
 This module allows Web UI users to be authenticated with user accounts from GLPI.
 
-For people not familiar with GLPI, it is an Open-Source CMDB. Applicable to servers, routers, printers or anything you want for that matter. It is also a help-desk tool. GLPI also integrates with tools like FusionInventory for IT inventory management. Of course, GLPI also integrates with Shinken an is able to build Shinken configuration from GLPI database thanks to GLPI Monitoring plugin and Shinken import-glpi module.
-
-
+For people not familiar with GLPI, it is an Open-Source CMDB. Applicable to servers, routers, printers or anything you want for that matter. It is also a help-desk tool. GLPI also integrates with tools like FusionInventory for IT inventory management. Of course, GLPI also integrates with Shinken an is able to build Shinken configuration from GLPI database thanks to GLPI Monitoring plugin and Shinken import-glpi module
 
 Requirements 
 =============
