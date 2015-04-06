@@ -1,0 +1,27 @@
+{
+  "name": "auth-ws-glpi",
+  "types": ["module"],
+  "version": "0.1",
+  "homepage": "http://github.com/mohierf/mod-auth-ws-glpi",
+  "author": "Frederic MOHIER",
+  "description": "Authenticate Web UI users upon a Glpi Web Service login.",
+  "contributors": [
+    {
+      "name": "Frederic MOHIER",
+      "email": "frederic.mohier@gmail.com"
+    }
+  ],
+  "repository": "https://github.com/mohierf/mod-auth-ws-glpi",
+  "keywords": [
+    "module",
+    "broker",
+    "webui",
+    "glpi",
+    "auth",
+    "authentication"
+  ],
+  "dependencies": {
+    "shinken": ">=2.0"
+  },
+  "license": "AGPL"
+}
