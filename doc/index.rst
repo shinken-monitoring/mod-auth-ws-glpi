@@ -47,9 +47,11 @@ to connect with username and password. If connection is successful the
 user will be logged in the Web UI.
 
 
-Please note that a Shinken contact must exist with the same name as the 
-username ! This contact may be a locally flat file contact or a contact 
-fetched from Glpi thanks to import-glpi module.
+	.. note::
+
+      Please note that a Shinken contact must exist with the same name as the 
+      username ! This contact may be a locally flat file contact or a contact 
+      fetched from Glpi thanks to import-glpi module.
 
 
 
