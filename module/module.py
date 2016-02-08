@@ -96,6 +96,9 @@ class WS_Glpi_Webui(BaseModule):
             # self.user_info['profiles']=result
 
             logger.info("[Auth WS Glpi] Authenticated, session : %s, info: %s" % (self.session, self.user_info))
+        except xmlrpclib.Fault as err:
+            logger.error("[Auth WS Glpi] Authentication refused, fault code: %d (%s)", err.faultCode, err.faultString)
+            return False
         except Exception:
             logger.error("[Auth WS Glpi] Authentication failed: %s." % traceback.format_exc())
             return False
