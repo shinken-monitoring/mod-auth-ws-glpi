@@ -86,12 +86,14 @@ class WS_Glpi_Webui(BaseModule):
             self.user_info = result
 
             # Get user allowed entities
-            result = self.ws_connection.glpi.listMyEntities(arg)
-            self.user_info['entities']=result
+            # Removed: too much verbose!
+            # result = self.ws_connection.glpi.listMyEntities(arg)
+            # self.user_info['entities']=result
 
             # Get user allowed profiles
-            result = self.ws_connection.glpi.listMyProfiles(arg)
-            self.user_info['profiles']=result
+            # Removed: too much verbose!
+            # result = self.ws_connection.glpi.listMyProfiles(arg)
+            # self.user_info['profiles']=result
 
             logger.info("[Auth WS Glpi] Authenticated, session : %s, info: %s" % (self.session, self.user_info))
         except Exception:
