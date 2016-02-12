@@ -26,6 +26,7 @@ This class is for authenticating a user with Glpi Web Service login
 
 import xmlrpclib
 import traceback
+import time
 
 from shinken.basemodule import BaseModule
 from shinken.log import logger
@@ -39,7 +40,7 @@ properties = {
 
 # called by the plugin manager
 def get_instance(plugin):
-    logger.info("[Auth WS Glpi] Get a Glpi WS authentication module for plugin %s" % plugin.get_name())
+    logger.info("[auth-ws-glpi] Get a Glpi WS authentication module for plugin %s" % plugin.get_name())
 
     instance = WS_Glpi_Webui(plugin)
     return instance
@@ -49,18 +50,18 @@ class WS_Glpi_Webui(BaseModule):
     def __init__(self, modconf):
         BaseModule.__init__(self, modconf)
 
-        logger.info("[Auth WS Glpi] Trying to initialize the Glpi WS authentication module")
+        logger.info("[auth-ws-glpi] Trying to initialize the Glpi WS authentication module")
         try:
             self.uri = getattr(modconf, 'uri', 'http://localhost/glpi/plugins/webservices/xmlrpc.php')
         except AttributeError:
-            logger.error("[Auth WS Glpi] The module is missing a property, check module configuration in auth-ws-glpi.cfg")
+            logger.error("[auth-ws-glpi] The module is missing a property, check module configuration in auth-ws-glpi.cfg")
             raise
 
     # Try to connect if we got true parameter
     def init(self):
-        logger.info("[Auth WS Glpi] Connecting to Glpi ...")
+        logger.info("[auth-ws-glpi] Connecting to Glpi ...")
         self.ws_connection = xmlrpclib.ServerProxy(self.uri)
-        logger.info("[Auth WS Glpi] Connection opened")
+        logger.info("[auth-ws-glpi] Connection opened")
 
     # To load the webui application
     def load(self, app):
@@ -72,10 +73,12 @@ class WS_Glpi_Webui(BaseModule):
         if not c:
             return False
 
+        now = time.time()
+
         self.session = None
         self.user_info = None
         try:
-            logger.info("[Auth WS Glpi] Authenticating user: %s ..." % user)
+            logger.info("[auth-ws-glpi] Authenticating user: %s ..." % user)
             arg = {'login_name': user, 'login_password': password}
             result = self.ws_connection.glpi.doLogin(arg)
             self.session = result['session']
@@ -95,24 +98,23 @@ class WS_Glpi_Webui(BaseModule):
             # result = self.ws_connection.glpi.listMyProfiles(arg)
             # self.user_info['profiles']=result
 
-            logger.info("[Auth WS Glpi] Authenticated, session : %s, info: %s" % (self.session, self.user_info))
+            logger.info("[auth-ws-glpi] Authenticated, session : %s, info: %s" % (self.session, self.user_info))
         except xmlrpclib.Fault as err:
-            logger.error("[Auth WS Glpi] Authentication refused, fault code: %d (%s)", err.faultCode, err.faultString)
-            return False
+            logger.error("[auth-ws-glpi] Authentication refused, fault code: %d (%s)", err.faultCode, err.faultString)
         except Exception:
-            logger.error("[Auth WS Glpi] Authentication failed: %s." % traceback.format_exc())
-            return False
+            logger.error("[auth-ws-glpi] Authentication failed: %s." % traceback.format_exc())
+        logger.info("[auth-ws-glpi] time to authenticate (%3.4fs)", time.time() - now)
 
-        return True
+        return self.session
 
     # Get the WS session identifier ...
     def get_session(self):
-        logger.debug("[Auth WS Glpi] get_session")
+        logger.debug("[auth-ws-glpi] get_session")
 
         return self.session
 
     # Get the user information ...
     def get_user_info(self):
-        logger.debug("[Auth WS Glpi] get_user_info")
+        logger.debug("[auth-ws-glpi] get_user_info")
 
         return self.user_info
