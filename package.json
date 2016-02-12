@@ -1,10 +1,10 @@
 {
   "name": "auth-ws-glpi",
   "types": ["module"],
-  "version": "2.0.2",
+  "version": "2.0.3",
   "homepage": "http://github.com/shinken-monitoring/mod-auth-ws-glpi",
   "author": "Frederic MOHIER",
-  "description": "Authenticate Web UI users upon a Glpi Web Service login (version 2.0.2).",
+  "description": "Authenticate Web UI users upon a Glpi Web Service login (version 2.0.3).",
   "contributors": [
     {
       "name": "Frederic MOHIER",
